@@ -1,0 +1,27 @@
+
+<h1><%= @post.title %> by <%= @current_user.name %></h1>
+<h2><%= @post.body %></h2>
+<%= link_to "Like" , :controller => :posts, :action => :like %>
+<%= link_to "Dislike" , :controller => :posts, :action => :dislike %>
+
+<h2>-------------------</h2>
+
+<% @post.comments.each do |comment| %>
+  <h2><%= comment.body %> </h2>
+  <% begin %>
+
+  -<%= User.find(comment.user_id).name %>
+  <br>
+  <% rescue %>
+    <p>oof</p>
+  <% end %>
+<% end %>
+
+<% if user_signed_in? %>
+  <h2>Comment</h2>
+  <%= form_for [@post,@comment] do |f| %>
+    <h1><%= f.text_area :body %></h1>
+    <h1><%= f.submit %></h1>
+  <% end %>
+<% end %>
+<%= link_to "Home", root_path %>

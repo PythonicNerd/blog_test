@@ -1,0 +1,13 @@
+<h1>Index</h1>
+
+<% Post.all.each do |post| %>
+  <h1><%= link_to post.title, post %></h1>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to "Make a Post", new_post_path %>
+  <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+
+<% elsif not user_signed_in? %>
+  <%= link_to "Sign In", new_user_session_path %>
+<% end %>
